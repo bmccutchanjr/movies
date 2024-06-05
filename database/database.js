@@ -4,12 +4,15 @@
 //	formatted onject saved in localStorage.  This module attempts to replicate typical database operations for
 //	those early development cycvles.
 
-function openDatabase ()
-{
+let data = {};
+getDatastore();
 
-}
+//	function openDatabase ()
+//	{
+//	
+//	}
 
-function getLocalStorage ()
+function getDatastore ()
 {
 	//	Get the datastore from localStorage...
 
@@ -32,8 +35,52 @@ function getLocalStorage ()
 		saveTitle ( { "title": "Casablanca" } );
 		saveTitle ( { "title": "Appolo 13" } );
 	}
-	
+}
 
+function saveDatastore ()
+{
+	//	Write the datastore to localStorage.  Always sort the datastore first...
+
+	sortDataTitles();
+	localStorage.setItem ("movies.datastore", data);
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Functins associated with retrieving and saving individual titles
+
+function createUniqueKey ()
+{
+	//	Create a unique key for each element in the datastore.
+	//
+	//	This key is a randomly generated 10 character alphnumeric string.  10 characters is overkill, but I'm
+	//	not going to verify the new key is in fact unigue and so the longer the key the less likely there will
+	//	be any duplicates.
+
+	let key = "";
+
+	for (let i=0; i<10; i++)
+	{
+		const k = Math.floor (Math.random() * 62);
+
+		if (k < 10) key += String.fromCharCode (k + 48);		//	48 is the ASCII code for '0'
+		else
+			if (k < 36) key += String.fromCharCode (k + 55);	//	65 is the ASCII code for 'A'
+			else
+				key += String.fromCharCode (k + 61);			//	97 is the ASCII code for 'a'
+	} 
+
+	return key;
+}
+
+function getTitle (key)
+{
+	//	Find the element in data.title[] with property key equal to the parameter passed to this function.
+
+	data.titles.find (t =>
+		{
+			return (t.key == key);
+		})
 }
 
 function saveTitle (t)
@@ -45,13 +92,9 @@ function saveTitle (t)
 	setLocalStorage()
 }
 
-function setLocalStorage ()
-{
-	//	Write the datastore to localStorage.  Always sort the datastore first...
 
-	sortDataTitles();
-	localStorage.setItem ("movies.datastore", data);
-}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Functins associated with sorting the datastore
 
 function sortTitles ()
 {
@@ -73,6 +116,6 @@ function tweakTitle (t)
 	//	saved in the datastore.
 
 	t = t.toUpperCase();
-	
-	 
+
+	 if (t.substring (0, t.indexOf (" ")) == "THE") t = t.substring (indexOf (" ")); 
 }
