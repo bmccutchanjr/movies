@@ -117,5 +117,8 @@ function tweakTitle (t)
 
 	t = t.toUpperCase();
 
-	 if (t.substring (0, t.indexOf (" ")) == "THE") t = t.substring (indexOf (" ")); 
+	//	Ignore leading articles (or anyway, "the").  This will become an optional setting eventually.  I amy
+	//	also wany yo ignore "a" amd "an", but I'm not so sure.
+
+	if (t.substring (0, t.indexOf (" ")) == "THE") t = t.substring (indexOf (" ")); 
 }
