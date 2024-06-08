@@ -34,7 +34,7 @@ body
 
 main
 {
-	background: rgba(0, 255, 0, 0.5);
+	/* background: rgba(0, 255, 0, 0.5); */
 	padding: var(--app-padding);
 }
 
@@ -46,7 +46,7 @@ nav
 {
 	--icon-size: 30px;
 
-	background-color: rgba(255, 0, 255, 0.5);
+	/* background-color: rgba(255, 0, 255, 0.5); */
 	display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
@@ -109,7 +109,7 @@ html
 
 #sticky-wrapper
 {
-	background: rgba(0, 255, 255, 0.5);
+	/* background: rgba(0, 255, 255, 0.5); */
 	height: auto;
 	margin-bottom: calc(var(--footer-total) * -1);
 	min-height: 100%;
@@ -117,7 +117,7 @@ html
 
 #stivky-pusher
 {
-	background: yellow;
+	/* background: yellow; */
 	height: var(--footer-total);
 }
 
