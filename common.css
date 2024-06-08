@@ -46,7 +46,6 @@ nav
 {
 	--icon-size: 30px;
 
-	/* background-color: rgba(255, 0, 255, 0.5); */
 	display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
@@ -75,29 +74,31 @@ nav > *
 
 nav > button
 {
-	--background-color: white;
+	--background-color: #7f7f7f;
 	--color: black;
 
-	background-color: var(--background-color);
-	border: 2px solid var(--color);
-	border-radius: var(--button-radius);
-	fill: var(--color);
+	background-color: none;
+	border: none;
 	height: var(--icon-size);
-	margin-bottom: var(--button-padding);
-	padding: var(--button-padding);
+	padding: 3px;
 	width: var(--icon-size);
 }
 
 nav > button:hover
 {
-	background-color: var(--color);
-	fill: var(--background-color);
+	padding: 0px;
 }
 
-nav > button:last-child
+.icon-wrapper
 {
-	margin-bottom: 0px;
+	background-color: var(--background-color);
+	border: 1px solid var(--background-color);
+	border-radius: var(--button-radius);
+	fill: var(--color);
+	height: 100%;
+	width: 100%;
 }
+
 
 /*	**************************************************************************************************	*/
 /*	style specific to the sticky footer																	*/
@@ -109,7 +110,6 @@ html
 
 #sticky-wrapper
 {
-	/* background: rgba(0, 255, 255, 0.5); */
 	height: auto;
 	margin-bottom: calc(var(--footer-total) * -1);
 	min-height: 100%;
@@ -117,7 +117,6 @@ html
 
 #stivky-pusher
 {
-	/* background: yellow; */
 	height: var(--footer-total);
 }
 
