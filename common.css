@@ -12,13 +12,18 @@
 
 :root
 {
+	--app-padding: 5px;
+
+	--button-padding: 2px;
+	--button-radius: 3px;
+
 	--color: white;
 
 	--footer-height: 30px;
 	--footer-margin: calc(var(--footer-height) / 2);
 	--footer-total: calc(var(--footer-height) + var(--footer-margin));
 
-	--app-padding: 5px;
+	--page-width: 75%;
 }
 
 body
@@ -57,7 +62,7 @@ nav
 		flex-wrap: nowrap;
 	height: calc(100vh - var(--footer-height));
 	padding: var(--app-padding);
-		padding-top: 30%;
+		padding-top: 35vh;
 	position: fixed;
 		left: 0px;
 		top: 0px;
@@ -85,16 +90,19 @@ nav > button
 {
 	--background-color: white;
 	--color: black;
-	--padding: 2px;
+	/* --padding: 2px; */
 
 	background-color: var(--background-color);
 	border: 2px solid var(--color);
-	border-radius: 3px;
+	/* border-radius: 3px; */
+	border-radius: var(--button-radius);
 	fill: var(--color);
 	/* height: 24px; */
 	height: var(--icon-size);
-	margin-bottom: var(--padding);
-	padding: var(--padding);
+	/* margin-bottom: var(--padding); */
+	margin-bottom: var(--button-padding);
+	/* padding: var(--padding); */
+	padding: var(--button-padding);
 	/* width: 24px; */
 	width: var(--icon-size);
 }

@@ -4,6 +4,8 @@
 //	formatted onject saved in localStorage.  This module attempts to replicate typical database operations for
 //	those early development cycvles.
 
+//	I could more accurately emulate a database if I make this a class and take advantage of encapsulation...
+
 let data = {};
 getDatastore();
 
@@ -71,6 +73,19 @@ function createUniqueKey ()
 	} 
 
 	return key;
+}
+
+function getListOfTitkes ()
+{
+	return new Promise ((response, reject) =>
+		{
+			//	In the real world (where this application will one day live), this function would execute a
+			//	database query -- and that would be an async operation.  Emulate that...
+
+			response (data.titles);
+
+			//	Since there is no chance of an error occuring here, we'll just ignore reject()
+		})
 }
 
 function getTitle (key)

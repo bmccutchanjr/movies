@@ -1,0 +1,67 @@
+/*	INDEX.CSS																							*/
+/*																										*/
+/*	This is the CSS that applies to elements that are created in INDEX.HTML or INDEX.JS only.  It		*/
+/*	primarilly deals with the list of titles.															*/
+
+#title-list
+{
+	margin: 0px auto;
+	width: var(--page-width);
+}
+
+.title-wrapper
+{
+	backdrop-filter: blur(var(--app-blur));
+	background-color: rgba(161, 161, 161, 0.5);
+	border: 1px solid rgba(127, 127, 127, 0.5);
+	border-radius: var(--button-radius);
+	display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+	font-size: 14px;
+	margin-bottom: var(--button-padding);
+	padding: var(--button-padding);
+	width: 100%;
+}
+
+.title-wrapper:last-child
+{
+	margin-bottom: 0px;
+}
+
+.title-wrapper > *
+{
+	flex-grow: 0;
+	flex-shrink: 0;
+	margin-right: var(--button-padding);
+	width: 14px;
+}
+
+.title-wrapper > *:last-child
+{
+	margin-right: 0px;
+}
+
+.title-wrapper > .title
+{
+	--margin: calc(6px - var(--button-padding));
+
+	flex-grow: 1;
+	margin-left: var(--margin);
+	margin-right: var(--margin);
+	overflow: none;
+}
+
+.title-wrapper > .delete
+{
+	color: gray;
+}
+
+.title-wrapper > .delete:hover
+{
+	background-color: red;
+	color: white;
+}
+
+
+/*	**************************************************************************************************	*/
