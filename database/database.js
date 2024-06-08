@@ -20,11 +20,13 @@ function getDatastore ()
 
 	const d = localStorage.getItem ("movies.datastore");
 
-	try
+//		try
+	if (d != null)
 	{
 		data = JSON.parse (d);
 	}
-	catch (_)
+//		catch (_)
+	else
 	{
 		//	There was an error attempting to parse the data retrieved from localStorage.  That akmost certainly
 		//	means there was no data stored there yet.  This is expected, and we need to make some initial data
@@ -43,8 +45,8 @@ function saveDatastore ()
 {
 	//	Write the datastore to localStorage.  Always sort the datastore first...
 
-	sortDataTitles();
-	localStorage.setItem ("movies.datastore", data);
+	sortTitles();
+	localStorage.setItem ("movies.datastore", JSON.stringify (data));
 }
 
 
@@ -75,20 +77,30 @@ function createUniqueKey ()
 	return key;
 }
 
-function getListOfTitkes ()
+function getListOfTitles ()
 {
 	return new Promise ((response, reject) =>
 		{
 			//	In the real world (where this application will one day live), this function would execute a
 			//	database query -- and that would be an async operation.  Emulate that...
 
-			response (data.titles);
+			let d = [];
+			data.titles.forEach (t =>
+				{
+					d.push (
+						{
+							"key": t.key,
+							"title": t.title
+						})
+				})
+
+			response (d);
 
 			//	Since there is no chance of an error occuring here, we'll just ignore reject()
 		})
 }
 
-function getTitle (key)
+function getTitleData (key)
 {
 	//	Find the element in data.title[] with property key equal to the parameter passed to this function.
 
@@ -100,11 +112,35 @@ function getTitle (key)
 
 function saveTitle (t)
 {
-	//	Save the data to the datastore.
+	//	Save the title data in the datastore.
 
-	if (t.key == undefined) t.key = createUniqueKey();
-	data.titles.push (t);
-	setLocalStorage()
+	if (t.key != undefined) updateTitle (t)
+	else
+	{
+		t.key = createUniqueKey();
+		data.titles.push (t);
+	}
+
+	saveDatastore();
+}
+
+function updateTitle (t)
+{
+	//	Update an existing title.  I need to identify the element of data.titles[] to update...that;s the element
+	//	whose property "key" matches the parameter's property "key".
+
+	let index = undefined;
+
+	for (let i=0; i<data.titles.length; i++)
+	{
+		if (data.titles[i].key == t.key)
+		{
+			data.titles[i] = t;
+			break;
+		}
+	}
+
+	//	This function is modifying a global variable.  There's nothing to return
 }
 
 
@@ -115,11 +151,11 @@ function sortTitles ()
 {
 	data.titles.sort ((t1, t2) =>
 	{
-		t1 = tweakTitle (t1);
-		t2 = tweakTitle (t1);
+		const tA = tweakTitle (t1.title);
+		const tB = tweakTitle (t2.title);
 
-		if (t1 > t2) return 1;
-		if (t1 < t2) return -1;
+		if (tA > tB) return 1;
+		if (tA < tB) return -1;
 
 		return 0;
 	})
@@ -135,5 +171,7 @@ function tweakTitle (t)
 	//	Ignore leading articles (or anyway, "the").  This will become an optional setting eventually.  I amy
 	//	also wany yo ignore "a" amd "an", but I'm not so sure.
 
-	if (t.substring (0, t.indexOf (" ")) == "THE") t = t.substring (indexOf (" ")); 
+	if (t.substring (0, t.indexOf (" ")) == "THE") t = t.substring (t.indexOf (" ") + 1); 
+
+	return t;
 }
