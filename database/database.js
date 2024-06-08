@@ -9,23 +9,13 @@
 let data = {};
 getDatastore();
 
-//	function openDatabase ()
-//	{
-//	
-//	}
-
 function getDatastore ()
 {
 	//	Get the datastore from localStorage...
 
 	const d = localStorage.getItem ("movies.datastore");
 
-//		try
-	if (d != null)
-	{
-		data = JSON.parse (d);
-	}
-//		catch (_)
+	if (d != null) data = JSON.parse (d);
 	else
 	{
 		//	There was an error attempting to parse the data retrieved from localStorage.  That akmost certainly

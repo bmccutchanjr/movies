@@ -1,4 +1,3 @@
-/* @import url('https://fonts.googleapis.com/css?family=Fredoka+One'); */
 @import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap');
 
 *
@@ -33,15 +32,6 @@ body
 	height: 100%;
 }
 
-/* header */
-/* {   background: rgba(255, 0, 0, 0.5); */
-	/* font-family: "Fredoka One", cursive; */
-	/* font-size: 36px; */
-	/* margin: 0px; */
-	/* padding: 25px; */
-	/* text-align: center; */
-/* } */
-
 main
 {
 	background: rgba(0, 255, 0, 0.5);
@@ -66,7 +56,6 @@ nav
 	position: fixed;
 		left: 0px;
 		top: 0px;
-	/* width: 34px; */
 	width: calc(var(--icon-size) + var(--app-padding));
 	z-index: 100;
 }
@@ -77,7 +66,6 @@ nav > *
 	flex-shrink: 0;
 }
 
-/* .nav-spacer */
 .flex-spacer
 {
 	flex-grow: 1;
@@ -85,38 +73,27 @@ nav > *
 	height: 30%;
 }
 
-/* .nav-icon */
 nav > button
 {
 	--background-color: white;
 	--color: black;
-	/* --padding: 2px; */
 
 	background-color: var(--background-color);
 	border: 2px solid var(--color);
-	/* border-radius: 3px; */
 	border-radius: var(--button-radius);
 	fill: var(--color);
-	/* height: 24px; */
 	height: var(--icon-size);
-	/* margin-bottom: var(--padding); */
 	margin-bottom: var(--button-padding);
-	/* padding: var(--padding); */
 	padding: var(--button-padding);
-	/* width: 24px; */
 	width: var(--icon-size);
 }
 
-/* .nav-icon:hover */
 nav > button:hover
 {
 	background-color: var(--color);
-	/* border-color: var(--background-color); */
-	/* color: var(--background-color); */
 	fill: var(--background-color);
 }
 
-/* .nav-icon:last-child */
 nav > button:last-child
 {
 	margin-bottom: 0px;

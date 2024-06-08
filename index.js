@@ -11,7 +11,6 @@ window.addEventListener ("load", event =>
 		//	And add some event listeners
 
 		document.getElementsByTagName ("nav")[0].addEventListener ("click", event => { handleNavClicks (event); } );
-//			document.getElementById ("title-list").addEventListener ("click", event => { handleListClicks (event); } );
 	})
 
 function loadTitles ()
