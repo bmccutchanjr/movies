@@ -64,7 +64,7 @@
 .title-wrapper > .delete
 {
 	background-color: rgba(255, 255, 255, 0.0);
-	background-image: url("icons/close-black.svg");
+	background-image: url("icons/close.svg");
 	border: none;
 	height: 100%;
 	margin: 0px;
@@ -73,8 +73,8 @@
 
 .title-wrapper > .delete:hover
 {
-	background-color: red;
-	background-image: url("icons/close-white.svg");
+	/* background-color: red; */
+	background-image: url("icons/close-hover.svg");
 }
 
 
