@@ -11,16 +11,19 @@
 
 .title-wrapper
 {
+	--background-color: rgba(161, 161, 161, 0.5);
+
+
 	backdrop-filter: blur(var(--app-blur));
-	background-color: rgba(161, 161, 161, 0.5);
+	background-color: var(--background-color);
 	border: 1px solid rgba(127, 127, 127, 0.5);
 	border-radius: var(--button-radius);
 	display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
 	font-size: 12px;
+	height: 20px;
 	margin-bottom: var(--button-padding);
-	padding: var(--button-padding);
 	width: 100%;
 }
 
@@ -33,20 +36,25 @@
 {
 	flex-grow: 0;
 	flex-shrink: 0;
-	margin-right: var(--button-padding);
-	width: 14px;
+	height: 18px;
+	margin: var(--button-padding);
+	width: 18px;
 }
 
-.title-wrapper > *:last-child
+.title-wrapper > input
 {
-	margin-right: 0px;
+	height: auto;
+	width: 14px;
 }
 
 .title-wrapper > .title
 {
 	--margin: calc(6px - var(--button-padding));
 
+	cursor: pointer;
 	flex-grow: 1;
+	height: 18px;
+	line-height: 1.5cap;
 	margin-left: var(--margin);
 	margin-right: var(--margin);
 	overflow: none;
@@ -55,13 +63,18 @@
 
 .title-wrapper > .delete
 {
-	color: gray;
+	background-color: rgba(255, 255, 255, 0.0);
+	background-image: url("icons/close-black.svg");
+	border: none;
+	height: 100%;
+	margin: 0px;
+	width: 20px;
 }
 
 .title-wrapper > .delete:hover
 {
 	background-color: red;
-	color: white;
+	background-image: url("icons/close-white.svg");
 }
 
 

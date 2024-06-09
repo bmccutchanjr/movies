@@ -41,12 +41,12 @@ function loadTitles ()
 				e = document.createElement ("a");				//	Semantically, this element should be a link
 				e.classList.add ("title");
 				e.innerText = d.title;
-				e.setAttribute ("title", "Click here to see more");
+				e.setAttribute ("title", "Click here to see more detailed information");
 				wrapper.append (e);
 
 				e = document.createElement ("button");
 				e.classList.add ("delete");
-				e.innerText = "X";
+//					e.innerText = "X";
 				e.setAttribute ("title", "Delete " + d.title + " from the database");
 				wrapper.append (e);
 
