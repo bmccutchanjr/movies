@@ -25,16 +25,11 @@ function initializeGUI ()
 	mode = "NEW TITLE";
 
 	const key = sessionStorage.getItem ("movie.key");
-	if (key == null)
-	{
-		newTitle();
-		initGUI();
-	}
+	if (key == null) initGUI (newTitle());
 	else
 	{
 		mode = "UPDATE TITLE";
-		retrieveTitle (key);
-		initGUI();
+		initGUI (retrieveTitle (key));
 
 		//	sessionStorage is no longer needed and may cause problems later if it is allowed to persist to multiple page
 		//	loads.  So remove it now...
@@ -43,29 +38,30 @@ function initializeGUI ()
 	}
 }
 
-let resetValues = {};
-
 function initGUI (data)
 {
 alert ("initValues()");
-alert (JSON.stringify (resetValues, " ", 2) );
+alert (JSON.stringify (data, " ", 2) );
 }
 
 function newTitle ()
 {
-	//	Assign default values to the global variable resetValues.  These values are used to initialize the page when it
-	//	is first loaded.  They may also be used later to undo any changes made (similar to what could be accomplished by
-	//	reloading the page.  As such, resetValues must persist and be available throughout the session.
-
+//		//	Assign default values to the global variable resetValues.  These values are used to initialize the page when it
+//		//	is first loaded.  They may also be used later to undo any changes made (similar to what could be accomplished by
+//		//	reloading the page.  As such, resetValues must persist and be available throughout the session.
+//	reset values will be saved by assigning values to a custiom property in each DOM element...that property will be called
+//	reset.
 alert ("newTitle ()");
 
-resetValues =
-	{
-		key:		null,
-		title:		null,
-		release:	null,
-		about:		null
-	}
+	const d =
+		{
+			key:		null,
+			title:		null,
+			release:	null,
+			about:		null
+		}
+
+	return d;
 }
 
 

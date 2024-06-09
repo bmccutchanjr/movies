@@ -38,6 +38,10 @@ main
 	padding: var(--app-padding);
 }
 
+.hidden
+{
+	display: none !important;
+}
 
 /*	**************************************************************************************************	*/
 /*	style specific to the <nav>																			*/
@@ -70,6 +74,12 @@ nav > *
 	flex-grow: 1;
 	flex-shrink: 1;
 	height: 30%;
+}
+
+nav > .no-icon
+{
+	height: calc(var(--icon-size) - calc(var(--app-padding) * 2));
+	width: var(--icon-size);
 }
 
 nav > button
