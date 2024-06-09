@@ -7,12 +7,66 @@ let mode = undefined;
 window.addEventListener ("load", event =>
 	{	event.preventDefault();
 
-alert ("title.js");
+		initializeGUI();
 
 		//	And add some event listeners
 
 		document.getElementsByTagName ("nav")[0].addEventListener ("click", event => { handleNavClicks (event); } );
 	})
+
+function initializeGUI ()
+{
+	//	Initial the GUI with data from the indicated title into the DOM.  If no title is indicated, assume this is a new
+	//	title and initialze fields with default values (usually empty strings).
+
+	//	If this page is displaying or editing data from an existing title, the unique key to identify that title will be
+	//	passed in sessionStorage.
+
+	mode = "NEW TITLE";
+
+	const key = sessionStorage.getItem ("movie.key");
+	if (key == null)
+	{
+		newTitle();
+		initGUI();
+	}
+	else
+	{
+		mode = "UPDATE TITLE";
+		retrieveTitle (key);
+		initGUI();
+
+		//	sessionStorage is no longer needed and may cause problems later if it is allowed to persist to multiple page
+		//	loads.  So remove it now...
+
+		sessionStorage.removeItem ("movie.key");
+	}
+}
+
+let resetValues = {};
+
+function initGUI (data)
+{
+alert ("initValues()");
+alert (JSON.stringify (resetValues, " ", 2) );
+}
+
+function newTitle ()
+{
+	//	Assign default values to the global variable resetValues.  These values are used to initialize the page when it
+	//	is first loaded.  They may also be used later to undo any changes made (similar to what could be accomplished by
+	//	reloading the page.  As such, resetValues must persist and be available throughout the session.
+
+alert ("newTitle ()");
+
+resetValues =
+	{
+		key:		null,
+		title:		null,
+		release:	null,
+		about:		null
+	}
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
