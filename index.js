@@ -46,7 +46,6 @@ function loadTitles ()
 
 				e = document.createElement ("button");
 				e.classList.add ("delete");
-//					e.innerText = "X";
 				e.setAttribute ("title", "Delete " + d.title + " from the database");
 				wrapper.append (e);
 
@@ -59,7 +58,7 @@ function loadTitles ()
 			alert (error);
 		})
 
-	//	...put the list in the DOM
+	//	...and put the list into the DOM
 
 	const main = document.getElementsByTagName ("main")[0];
 	main.removeChild (main.firstChild);							//	First, remove anything already displayed in the list
@@ -71,6 +70,7 @@ function loadTitles ()
 	document.getElementById ("title-list").addEventListener ("click", event => { handleListClicks (event); } );
 }
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	The event handler and associated functions for click events in the list of titles
 
@@ -79,6 +79,7 @@ function handleListClicks (event)
 
 alert ("handleListClicks ()");
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	The event handler and associated functions for click events in the nav
@@ -100,7 +101,8 @@ function handleNavClicks (event)
 	{
 		case "add-a-title":
 			{
-				alert ("add-a-title");
+//					alert ("add-a-title");
+				window.open ("title/title.html", "_self");
 				break;
 			}
 		default:
