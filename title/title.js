@@ -25,7 +25,16 @@ function initializeGUI ()
 	mode = "NEW TITLE";
 
 	const key = sessionStorage.getItem ("movie.key");
-	if (key == null) initGUI (newTitle());
+//		if (key == null) initGUI (newTitle());
+if (key == null)
+{
+//	It makes no sense for the input elements to be readonly when this is a new title...traverse the DOM and remove the
+//	readonly attribute.  Then, hide the edit button.  This is exactly the same thing that has to be done when the
+//	edit button is clicked, so put that code in a function where I can get at it from the click event handler and from
+//	here
+	initGUI (newTitle());
+	editMode (true);
+}
 	else
 	{
 		mode = "UPDATE TITLE";
@@ -111,6 +120,7 @@ function handleNavClicks (event)
 //	Use .getElementsByTagName to retrieve a reference to all input elements.  Iterate that list and remove the attribute
 //	'readonly' from each.  Do the same for textarea elements.  There are a few div elements that need to be made editable
 //	as well.  Assign a value of true to property 'contenteditable'
+editMode (true);
 				break;
 			}
 		default:
@@ -119,4 +129,51 @@ function handleNavClicks (event)
 				break;
 			}
 	}
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Various functions used throughout the page
+
+function editMode (_)
+{
+//	This function does not take a parameter just yet -- maybe never.  The function is set up with an argument as a
+//	reminder to me, because I may want to toggle edit mode (say after saving) someday.
+
+//	Use .getElementsByTagName to retrieve a reference to all input elements.  Iterate that list and remove the attribute
+//	'readonly' from each.  Do the same for textarea elements.  There are a few div elements that need to be made editable
+//	as well.  Assign a value of true to property 'contenteditable'
+
+	toggleReadonly (document.getElementsByTagName ("input", true));
+	toggleReadonly (document.getElementsByTagName ("textarea", true));
+
+	//	There are also editable div elements (can't use textarea because I want allow some HTML tags for formatting).  They
+	//	also need to become editable, but that's slightly different.
+
+	// const main = document.getElementsByTagName ("main")[0];
+	// const div = main.querySelector (".editable");
+	const div = document.querySelectorAll (".editable");
+	for (i=0; i<div.length; i++)
+	{
+		div[i].setAttribute ("contenteditable", true)
+	}
+
+	//	configure nav icons
+
+	document.getElementById ("edit-page").classList.add ("hidden");
+	document.getElementById ("reset-page").classList.remove ("hidden");
+	document.getElementById ("save-this-title").classList.remove ("hidden");
+}
+
+function toggleReadonly (list, _)
+{
+	//	Toggle the readonly attribute on GUI input elements.
+
+	//	Some day I may really want to use this function to toggle readonly, but for now I'm just removing it.  So for the
+	//	time being, I'm just ignoring the second parameter.  I've included it as a placeholder/reminder.
+
+	Array.from (list).forEach (l =>
+		{
+			l.removeAttribute ("readonly");
+		})
 }
