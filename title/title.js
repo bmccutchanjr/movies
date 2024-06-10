@@ -64,20 +64,20 @@ function newTitle ()
 	//	reloading the page.  As such, resetValues must persist and be available throughout the session.  To save these
 	//	values are assigned to a custiom property in each DOM element...that property will be called 'reset'.
 
-//		const d =
-//			{
-//				key:		null,
-//				title:		null,
-//				release:	null,
-//				about:		null
-//			}
-const d =
-	{
-		key:		null,
-		title:		"Lost in Translation",
-		release:	1937,
-		about:		"Bill <b>Murray</b> and Scarlett <b>Johansson</b> <s>parody</s> meet in Tokyo."
-	}
+	const d =
+		{
+			key:		null,
+			title:		null,
+			release:	null,
+			about:		null
+		}
+//	const d =
+//		{
+//			key:		null,
+//			title:		"Lost in Translation",
+//			release:	1937,
+//			about:		"Bill <b>Murray</b> and Scarlett <b>Johansson</b> <s>parody</s> meet in Tokyo."
+//	}
 
 	return d;
 }
@@ -104,6 +104,13 @@ function handleNavClicks (event)
 		case "go-back":
 			{
 				history.back();
+				break;
+			}
+		case "edit-page":
+			{
+//	Use .getElementsByTagName to retrieve a reference to all input elements.  Iterate that list and remove the attribute
+//	'readonly' from each.  Do the same for textarea elements.  There are a few div elements that need to be made editable
+//	as well.  Assign a value of true to property 'contenteditable'
 				break;
 			}
 		default:
