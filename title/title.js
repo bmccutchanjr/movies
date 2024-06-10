@@ -123,6 +123,11 @@ function handleNavClicks (event)
 editMode (true);
 				break;
 			}
+		case "reset-page":
+			{
+				resetPage();
+				break;
+			}
 		default:
 			{
 				alert ("handleNavClicks ()");
@@ -131,6 +136,52 @@ editMode (true);
 	}
 }
 
+function resetPage ()
+{
+	//	Reset the page to initial values.  The initial value of each DOM element was assigned to a custom attribute
+	//	called 'reset'.
+
+	resetElement (document.getElementsByTagName ("input"));
+	resetElement (document.getElementsByTagName ("textarea"));
+
+	//	There are also editable div elements (can't use textarea because I want allow some HTML tags for formatting).  They
+	//	also need to become editable, but that's slightly different.
+
+//		const div = document.querySelectorAll (".editable");
+//		for (i=0; i<div.length; i++)
+//		{
+//			div[i].setAttribute ("contenteditable", true)
+//		}
+resetElement (document.querySelectorAll (".editable"));
+}
+
+function resetElement (list, _)
+{
+	//	reset the values of all editable fields to whatever value they had when the page was loaded.
+
+//		Array.from (list).forEach (l =>
+	for (i=0; i<list.length; i++)
+		{
+			//	There are editable div, input and textarea elements.  Some of the input elements may be checkboxes.  Eventually,
+			//	there will be star ratings and favorites (although I don't know how I;m going to handle those just yet.  They all
+			//	need to be handled a little differently. 
+
+//				if (l.tagName == "div")
+			if (list[i].tagName == "DIV")
+			{
+//					l.innerHTML = l.getAttribute ("reset");
+				list[i].innerHTML = list[i].getAttribute ("reset");
+				continue;
+			}
+//
+//	Any other "special cases" elements go here; checkbosec, radio buttons, star ratings, etc...
+//
+			//	And finally...the default behavior.  Assign the value of reset to the value attribute of the element
+
+//				l.innerHTML = l.getAttribute ("reset");
+			list[i].value = list[i].getAttribute ("reset");
+		}
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Various functions used throughout the page
