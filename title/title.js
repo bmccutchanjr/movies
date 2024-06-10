@@ -40,26 +40,44 @@ function initializeGUI ()
 
 function initGUI (data)
 {
-alert ("initValues()");
-alert (JSON.stringify (data, " ", 2) );
+	//	This function populates GUI elements with values from a JSON object.  That object is either actual data
+	//	from the datastore or default values used to initialize the page.  The keys of the object coorespond to
+	//	the id attribute of the DOM elements.
+
+	Object.entries (data).forEach (datum =>
+	{
+		const e = document.getElementById (datum[0]);
+
+		if (datum[0] == "about")
+			e.innerHTML = datum[1];
+		else
+			e.value = datum[1];
+
+		e.setAttribute ("reset", datum[1]);
+	})
 }
 
 function newTitle ()
 {
-//		//	Assign default values to the global variable resetValues.  These values are used to initialize the page when it
-//		//	is first loaded.  They may also be used later to undo any changes made (similar to what could be accomplished by
-//		//	reloading the page.  As such, resetValues must persist and be available throughout the session.
-//	reset values will be saved by assigning values to a custiom property in each DOM element...that property will be called
-//	reset.
-alert ("newTitle ()");
+	//	Assign default values to the global variable resetValues.  These values are used to initialize the page when it
+	//	is first loaded.  They may also be used later to undo any changes made (similar to what could be accomplished by
+	//	reloading the page.  As such, resetValues must persist and be available throughout the session.  To save these
+	//	values are assigned to a custiom property in each DOM element...that property will be called 'reset'.
 
-	const d =
-		{
-			key:		null,
-			title:		null,
-			release:	null,
-			about:		null
-		}
+//		const d =
+//			{
+//				key:		null,
+//				title:		null,
+//				release:	null,
+//				about:		null
+//			}
+const d =
+	{
+		key:		null,
+		title:		"Lost in Translation",
+		release:	1937,
+		about:		"Bill <b>Murray</b> and Scarlett <b>Johansson</b> <s>parody</s> meet in Tokyo."
+	}
 
 	return d;
 }
