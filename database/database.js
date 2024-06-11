@@ -110,12 +110,13 @@ function saveTitle (t)
 			//	asynchronous operation (I believe writing to localStorage is async) though, and writing this
 			//	as a Promise helps lay the groundwork for the day it necomes a databse operation...
 
-			if (t.key == "")
+			if ((t.key) && (t.key != ""))
+				updateTitle (t)
+			else
 			{
 				t.key = createUniqueKey();
 				data.titles.push (t);
 			}
-			else updateTitle (t)
 		
 			saveDatastore();
 
