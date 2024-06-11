@@ -13,6 +13,7 @@ window.addEventListener ("load", event =>
 
 		document.getElementsByTagName ("main")[0].addEventListener ("input", event => { handleInputEvents (event); } );
 		document.getElementsByTagName ("nav")[0].addEventListener ("click", event => { handleNavClicks (event); } );
+document.getElementById ("title").addEventListener ("change", event => { handleTitleChange (event); } );
 	})
 
 function initializeGUI ()
@@ -208,6 +209,52 @@ function saveThisTitle ()
 		})
 	.catch (error => { alert (error); } );
 }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	Handle change events to input#title
+
+function handleTitleChange (event)
+{	event.preventDefault();
+
+	event.target.value = toProperCase (event.target)
+}
+
+function toProperCase (element)
+{
+	//	Change the value of element to "proper" case.  For a movie title, that means all words should be capitalized
+	//	except for articles ("a", "an" and "the") and prepositions ("in", "on", "with", etc.).  The first word in the
+	//	title should be capitalized regardless.
+
+	//	Although the vast majority of titles should be proper case, a small minority should not be.  Compare the
+	//	value of #title to the previously entered version (ignoring case).  If they dont't match change the title to
+	//	proper case.  Note that this saved attribute won't exist until this function creates it.  That means that
+	//	#title will default to proper case.  If that is incorrect for this title, the user will have to change it.
+
+	let returnString = element.value;
+	const except = [ "A", "AN", "AND", "IN", "ON", "THE", "WITH" ]
+
+	if (element.value.toUpperCase() != element.getAttribute ("previous-value"))
+	{
+		const array = element.value.split (" ");
+		array.forEach ((a, i) =>
+			{
+				if ((i == 0) || (except.indexOf (a.toUpperCase()) == -1))
+				{
+					const arrayB = a.split ("");
+					arrayB[0] = arrayB[0].toUpperCase();
+					array[i] = arrayB.join ("");
+				}
+			})
+
+		returnString = array.join (" ");
+	}
+
+	element.setAttribute ("previous-value", returnString.toUpperCase());
+
+	return returnString;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Various functions used throughout the page
