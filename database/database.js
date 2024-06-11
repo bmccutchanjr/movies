@@ -1,7 +1,7 @@
 //	DATABASE.JS
 //
 //	There will not be a database during early stages of development.  Instead, the application will use a JSON
-//	formatted onject saved in localStorage.  This module attempts to replicate typical database operations for
+//	formatted onject written to localStorage.  This module attempts to replicate typical database operations for
 //	those early development cycvles.
 
 //	I could more accurately emulate a database if I make this a class and take advantage of encapsulation...
@@ -94,7 +94,8 @@ function getTitleData (key)
 {
 	//	Find the element in data.title[] with property key equal to the parameter passed to this function.
 
-	data.titles.find (t =>
+//		data.titles.find (t =>
+return data.titles.find (t =>
 		{
 			return (t.key == key);
 		})
@@ -138,6 +139,8 @@ function updateTitle (t)
 			break;
 		}
 	}
+
+data.titles[index] = t;
 
 	//	This function is modifying a global variable.  There's nothing to return
 }

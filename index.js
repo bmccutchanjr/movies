@@ -25,15 +25,18 @@ function loadTitles ()
 			{
 				const wrapper = document.createElement ("div");
 				wrapper.classList.add ("title-wrapper");
+				wrapper.setAttribute ("key", d.key);
 
 				let e = document.createElement ("input");
 
 				e = document.createElement ("input");
+				e.setAttribute ("id", "watch");
 				e.setAttribute ("title", "Place " + d.title + " on the 'watch list'");
 				e.setAttribute ("type", "checkbox");
 				wrapper.append (e);
 
 				e = document.createElement ("input");
+				e.setAttribute ("id", "seen");
 				e.setAttribute ("title", "Have seen " + d.title);
 				e.setAttribute ("type", "checkbox");
 				wrapper.append (e);
@@ -41,11 +44,13 @@ function loadTitles ()
 				e = document.createElement ("a");				//	Semantically, this element should be a link
 				e.classList.add ("title");
 				e.innerText = d.title;
+				e.setAttribute ("id", "title");
 				e.setAttribute ("title", "Click here to see more detailed information");
 				wrapper.append (e);
 
 				e = document.createElement ("button");
 				e.classList.add ("delete");
+				e.setAttribute ("id", "delete");
 				e.setAttribute ("title", "Delete " + d.title + " from the database");
 				wrapper.append (e);
 
@@ -77,7 +82,39 @@ function loadTitles ()
 function handleListClicks (event)
 {	event.preventDefault();
 
-alert ("handleListClicks ()");
+//	alert ("handleListClicks ()");
+	switch (event.target.getAttribute ("id"))
+	{
+		case "delete":
+			{
+				alert ("delete");
+				break;
+			}
+		case "title":
+			{
+				alert ("get the title");
+//	alert (event.target.tagName);
+//	alert (event.target.innerText);
+sessionStorage.setItem ("movie.key", getAncestorAttribute (event.target, "key"));
+window.open ("title/title.html", "_self");
+				break;
+			}
+		case "seen":
+			{
+				alert ("seen it");
+				break;
+			}
+		case "watch":
+			{
+				alert ("watch this");
+				break;
+			}
+		default:
+			{
+				alert ("handleListClicks ()");
+				break;
+			}
+	}
 }
 
 
@@ -86,22 +123,22 @@ alert ("handleListClicks ()");
 
 function handleNavClicks (event)
 {	event.preventDefault();
-	let target = event.target;
+//		let target = event.target;
 
 	//	The id for each icon is actually in the button element and there's a very good chance that that won't be the element
 	//	identified in event.target.  If not, traverse event.target's ancestors until one of them has an id attribute.
 
-	let id = undefined;
-	while (target.getAttribute ("id") == undefined)
-	{
-		target = target.parentElement;
-	}
-
-	switch (target.getAttribute ("id"))
+//		let id = undefined;
+//		while (target.getAttribute ("id") == undefined)
+//		{
+//			target = target.parentElement;
+//		}
+//	
+//		switch (target.getAttribute ("id"))
+	switch (getAncestorAttribute (event.target, "id"))
 	{
 		case "add-a-title":
 			{
-//					alert ("add-a-title");
 				window.open ("title/title.html", "_self");
 				break;
 			}
@@ -111,4 +148,27 @@ function handleNavClicks (event)
 				break;
 			}
 	}
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	
+
+function getAncestorAttribute (element, attribute)
+{
+	//	Begining with "element", traverse the DOM to find the first ancestor element (parent, grandparent, etc) with the
+	//	specified attribute.  Return the value of the attribute.
+
+	//	Many of the clickable elements on this page are wrapped in container elemets where the container has an attribute
+	//	I need.  For instance, the clickboxes and delete buttons in the list of titles do not have an attribute of "key".
+	//	But I need "key" to identify the correct entry in the datastore.  That attribute belongs to the container div whicg
+	//	is the parent of the checkbox or button.  There's a similar issue with nav buttons.
+
+//		let id = undefined;
+	while (element.getAttribute (attribute) == undefined)
+	{
+		element = element.parentElement;
+	}
+
+	return element.getAttribute (attribute);
 }

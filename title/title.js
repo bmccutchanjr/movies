@@ -35,16 +35,16 @@ function initializeGUI ()
 		initGUI (newTitle());
 		editMode (true);
 	}
-		else
-		{
-			mode = "UPDATE TITLE";
-			initGUI (retrieveTitle (key));
+	else
+	{
+		mode = "UPDATE TITLE";
+		initGUI (getTitleData (key));
 
-			//	sessionStorage is no longer needed and may cause problems later if it is allowed to persist to multiple
-			//	page loads.  So remove it now...
+		//	sessionStorage is no longer needed and may cause problems later if it is allowed to persist to multiple
+		//	page loads.  So remove it now...
 
-			sessionStorage.removeItem ("movie.key");
-		}
+		sessionStorage.removeItem ("movie.key");
+	}
 }
 
 function initGUI (data)
@@ -173,7 +173,7 @@ function resetElement (list, _)
 			continue;
 		}
 //
-//	Any other "special cases" elements go here; checkbosec, radio buttons, star ratings, etc...
+//	Any other "special cases" elements go here; checkboxec, radio buttons, star ratings, etc...
 //
 		//	And finally...the default behavior.  Assign the value of reset to the value attribute of the element
 
