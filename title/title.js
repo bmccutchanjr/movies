@@ -11,6 +11,7 @@ window.addEventListener ("load", event =>
 
 		//	And add some event listeners
 
+		document.getElementsByTagName ("main")[0].addEventListener ("input", event => { handleInputEvents (event); } );
 		document.getElementsByTagName ("nav")[0].addEventListener ("click", event => { handleNavClicks (event); } );
 	})
 
@@ -85,6 +86,19 @@ function newTitle ()
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	The event handler and associated functions for input events
+
+function handleInputEvents (event)
+{	event.preventDefault();
+
+	//	Something in the page has been changed...enable the reset and save buttons
+
+	document.getElementById ("reset-page").classList.remove ("hidden");
+	document.getElementById ("save-this-title").classList.remove ("hidden");
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //	The event handler and associated functions for click events in the nav
 
 function handleNavClicks (event)
@@ -117,6 +131,11 @@ function handleNavClicks (event)
 				resetPage();
 				break;
 			}
+		case "save-this-title":
+			{
+				saveThisTitle();
+				break;
+			}
 		default:
 			{
 				alert ("handleNavClicks ()");
@@ -133,6 +152,9 @@ function resetPage ()
 	resetElement (document.getElementsByTagName ("input"));
 	resetElement (document.getElementsByTagName ("textarea"));
 	resetElement (document.querySelectorAll (".editable"));
+
+	document.getElementById ("reset-page").classList.add ("hidden");
+	document.getElementById ("save-this-title").classList.add ("hidden");
 }
 
 function resetElement (list, _)
@@ -157,6 +179,13 @@ function resetElement (list, _)
 
 		list[i].value = list[i].getAttribute ("reset");
 	}
+}
+
+function saveThisTitle ()
+{
+	//	Save the data to the datastore...
+
+alert ("saveThisTitle ()");
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,8 +214,6 @@ function editMode (_)
 	//	configure nav icons
 
 	document.getElementById ("edit-page").classList.add ("hidden");
-	document.getElementById ("reset-page").classList.remove ("hidden");
-	document.getElementById ("save-this-title").classList.remove ("hidden");
 }
 
 function toggleReadonly (list, _)
