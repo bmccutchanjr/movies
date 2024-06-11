@@ -92,11 +92,9 @@ function handleListClicks (event)
 			}
 		case "title":
 			{
-				alert ("get the title");
-//	alert (event.target.tagName);
-//	alert (event.target.innerText);
-sessionStorage.setItem ("movie.key", getAncestorAttribute (event.target, "key"));
-window.open ("title/title.html", "_self");
+//					alert ("get the title");
+				sessionStorage.setItem ("movie.key", getAncestorAttribute (event.target, "key"));
+				window.open ("title/title.html", "_self");
 				break;
 			}
 		case "seen":
@@ -128,13 +126,6 @@ function handleNavClicks (event)
 	//	The id for each icon is actually in the button element and there's a very good chance that that won't be the element
 	//	identified in event.target.  If not, traverse event.target's ancestors until one of them has an id attribute.
 
-//		let id = undefined;
-//		while (target.getAttribute ("id") == undefined)
-//		{
-//			target = target.parentElement;
-//		}
-//	
-//		switch (target.getAttribute ("id"))
 	switch (getAncestorAttribute (event.target, "id"))
 	{
 		case "add-a-title":
@@ -152,7 +143,7 @@ function handleNavClicks (event)
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	
+//	various utility functions used throughout this module
 
 function getAncestorAttribute (element, attribute)
 {
@@ -164,7 +155,6 @@ function getAncestorAttribute (element, attribute)
 	//	But I need "key" to identify the correct entry in the datastore.  That attribute belongs to the container div whicg
 	//	is the parent of the checkbox or button.  There's a similar issue with nav buttons.
 
-//		let id = undefined;
 	while (element.getAttribute (attribute) == undefined)
 	{
 		element = element.parentElement;

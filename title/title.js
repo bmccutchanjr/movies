@@ -185,8 +185,6 @@ function saveThisTitle ()
 {
 	//	Save the data to the datastore...
 
-//	alert ("saveThisTitle ()");
-
 	//	Get everythong out of the COM and into a JSON object that can be added to the datastore.
 
 	saveTitle (

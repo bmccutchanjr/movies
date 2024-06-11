@@ -94,11 +94,10 @@ function getTitleData (key)
 {
 	//	Find the element in data.title[] with property key equal to the parameter passed to this function.
 
-//		data.titles.find (t =>
-return data.titles.find (t =>
-		{
-			return (t.key == key);
-		})
+	return data.titles.find (t =>
+	{
+		return (t.key == key);
+	})
 }
 
 function saveTitle (t)
