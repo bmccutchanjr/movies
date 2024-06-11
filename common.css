@@ -130,7 +130,7 @@ html
 	min-height: 100%;
 }
 
-#stivky-pusher
+#sticky-pusher
 {
 	height: var(--footer-total);
 }
