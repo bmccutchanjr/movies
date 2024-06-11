@@ -232,14 +232,14 @@ function toProperCase (element)
 	//	#title will default to proper case.  If that is incorrect for this title, the user will have to change it.
 
 	let returnString = element.value;
-	const except = [ "A", "AN", "AND", "IN", "ON", "THE", "WITH" ]
+	const except = [ "a", "an", "and", "at", "by", "for", "from", "in", "of", "on", "the", "with" ]
 
 	if (element.value.toUpperCase() != element.getAttribute ("previous-value"))
 	{
-		const array = element.value.split (" ");
+		const array = element.value.toLowerCase().split (" ");
 		array.forEach ((a, i) =>
 			{
-				if ((i == 0) || (except.indexOf (a.toUpperCase()) == -1))
+				if ((i == 0) || (except.indexOf (a) == -1))
 				{
 					const arrayB = a.split ("");
 					arrayB[0] = arrayB[0].toUpperCase();
