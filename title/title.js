@@ -185,7 +185,30 @@ function saveThisTitle ()
 {
 	//	Save the data to the datastore...
 
-alert ("saveThisTitle ()");
+//	alert ("saveThisTitle ()");
+
+	//	Get everythong out of the COM and into a JSON object that can be added to the datastore.
+
+	saveTitle (
+		{
+			key:		document.getElementById ("key").value,
+			title:		document.getElementById ("title").value,
+			release:	document.getElementById ("release").value,
+			about:		document.getElementById ("about").innerHTML
+		})
+	.then (_ =>
+		{
+			//	I don;t actually care what the response is, it's enough to know that the operation was successful.
+			//	But I do need to clean up after it.
+			//
+			//	If this was a new title, initialize the DOM for another new title.  That's as close to a batch
+			//	operation as I care to make it.  If this was an update, close this window and return to the list
+			//	page
+
+			if (mode == "NEW TITLE") initializeGUI();
+			else history.back();
+		})
+	.catch (error => { alert (error); } );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

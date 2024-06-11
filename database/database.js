@@ -104,14 +104,23 @@ function saveTitle (t)
 {
 	//	Save the title data in the datastore.
 
-	if (t.key != undefined) updateTitle (t)
-	else
-	{
-		t.key = createUniqueKey();
-		data.titles.push (t);
-	}
+	return new Promise ((response, reject) =>
+		{
+			//	Okay, I know this isn;t really a database operation and not likely to fail.  But it is an
+			//	asynchronous operation (I believe writing to localStorage is async) though, and writing this
+			//	as a Promise helps lay the groundwork for the day it necomes a databse operation...
 
-	saveDatastore();
+			if (t.key == "")
+			{
+				t.key = createUniqueKey();
+				data.titles.push (t);
+			}
+			else updateTitle (t)
+		
+			saveDatastore();
+
+			response ("OK");
+		})
 }
 
 function updateTitle (t)
@@ -125,7 +134,7 @@ function updateTitle (t)
 	{
 		if (data.titles[i].key == t.key)
 		{
-			data.titles[i] = t;
+			index = i;
 			break;
 		}
 	}
