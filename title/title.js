@@ -231,28 +231,53 @@ function toProperCase (element)
 	//	proper case.  Note that this saved attribute won't exist until this function creates it.  That means that
 	//	#title will default to proper case.  If that is incorrect for this title, the user will have to change it.
 
+	//	There are no hard and fast rules, and all style guides do not agree on all details.  In general, the first and
+	//	last word in a title should always be capitalized.  Subtittles should be treated like titles,  Nouns, verbs,
+	//	adjectives and averbs should always be capitalized.  All other parts of speech (articles, conjunctions,
+	//	prepositionsm etc) should be in lower case.  The Chicago rule book says conjuctions and prepositions more than
+	//	four letters in length should be capitalized.
+
 	let returnString = element.value;
-	const except = [ "a", "an", "and", "at", "by", "for", "from", "in", "of", "on", "the", "with" ]
+	const except = [ "a", "an", "and", "at", "but", "by", "for", "from", "in", "nor", "not", "of", "on", "or", "the", "to", "with" ]
 
 	if (element.value.toUpperCase() != element.getAttribute ("previous-value"))
 	{
-		const array = element.value.toLowerCase().split (" ");
-		array.forEach ((a, i) =>
+//			const array = element.value.toLowerCase().split (" ");
+//			array.forEach ((a, i) =>
+//				{
+//					if ((i == 0) || (except.indexOf (a) == -1))
+//					{
+//						const arrayB = a.split ("");
+//						arrayB[0] = arrayB[0].toUpperCase();
+//						array[i] = arrayB.join ("");
+//					}
+//				})
+
+//	create an array of title and subtitles
+const subtitleArray = element.value.toLowerCase().split (":");
+
+subtitleArray.forEach ((a1, i) =>
+	{
+		//	create an array of woeds
+		const wordArray = a1.toLowerCase().split (" ");		
+		wordArray.forEach ((a2, i) =>
 			{
-				if ((i == 0) || (except.indexOf (a) == -1))
+				if ((i == 0) || (except.indexOf (a) == -1) || (i == (wordArray.length - 1)))
 				{
-					const arrayB = a.split ("");
-					arrayB[0] = arrayB[0].toUpperCase();
-					array[i] = arrayB.join ("");
+					const array3 = a2.split ("");
+					array3[0] = array3[0].toUpperCase();
+					wordArray[i] = array3.join ("");
 				}
 			})
 
-		returnString = array.join (" ");
-	}
+		subtitleArray[i] = wordArray.join (" ");
+	})
 
-	element.setAttribute ("previous-value", returnString.toUpperCase());
+returnString = subtitleArray.join (": ").trim();
 
-	return returnString;
+element.setAttribute ("previous-value", returnString.toUpperCase());
+
+return returnString;
 }
 
 
