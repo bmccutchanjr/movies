@@ -125,6 +125,8 @@ function handleNavClicks (event)
 		case "edit-page":
 			{
 				editMode (true);
+//				document.getElementById ("title").focus();
+//					giveElementFocus ("title");
 				break;
 			}
 		case "reset-page":
@@ -135,6 +137,7 @@ function handleNavClicks (event)
 		case "save-this-title":
 			{
 				saveThisTitle();
+//					giveElementFocus ("title");
 				break;
 			}
 		default:
@@ -304,9 +307,18 @@ function editMode (_)
 		div[i].setAttribute ("contenteditable", true)
 	}
 
+	//	Put the curdor in input#title
+
+	giveElementFocus ("title");
+
 	//	configure nav icons
 
 	document.getElementById ("edit-page").classList.add ("hidden");
+}
+
+function giveElementFocus (id)
+{
+	document.getElementById (id).focus();
 }
 
 function toggleReadonly (list, _)
