@@ -254,15 +254,15 @@ function toProperCase (element)
 //				})
 
 //	create an array of title and subtitles
-const subtitleArray = element.value.toLowerCase().split (":");
+const subtitleArray = element.value.trim().toLowerCase().split (":");
 
 subtitleArray.forEach ((a1, i) =>
 	{
 		//	create an array of woeds
-		const wordArray = a1.toLowerCase().split (" ");		
+		const wordArray = a1.trim().toLowerCase().split (" ");		
 		wordArray.forEach ((a2, i) =>
 			{
-				if ((i == 0) || (except.indexOf (a) == -1) || (i == (wordArray.length - 1)))
+				if ((i == 0) || (except.indexOf (a2) == -1) || (i == (wordArray.length - 1)))
 				{
 					const array3 = a2.split ("");
 					array3[0] = array3[0].toUpperCase();
@@ -276,7 +276,7 @@ subtitleArray.forEach ((a1, i) =>
 returnString = subtitleArray.join (": ").trim();
 
 element.setAttribute ("previous-value", returnString.toUpperCase());
-
+	}
 return returnString;
 }
 
