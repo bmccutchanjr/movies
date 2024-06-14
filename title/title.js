@@ -12,8 +12,9 @@ window.addEventListener ("load", event =>
 		//	And add some event listeners
 
 		document.getElementsByTagName ("main")[0].addEventListener ("input", event => { handleInputEvents (event); } );
+document.getElementsByTagName ("main")[0].addEventListener ("click", event => { handleMainClicks (event); } );
 		document.getElementsByTagName ("nav")[0].addEventListener ("click", event => { handleNavClicks (event); } );
-document.getElementById ("title").addEventListener ("change", event => { handleTitleChange (event); } );
+		document.getElementById ("title").addEventListener ("change", event => { handleTitleChange (event); } );
 	})
 
 function initializeGUI ()
@@ -87,7 +88,12 @@ function newTitle ()
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//	The event handler and associated functions for input events
+//	The event handler and associated functions for input events.  Input events are triggered when something is input into
+//	an editable element, whether that is an input, textarea or a div with the contenteditable attribute.  It differs from
+//	a change event in two major ways...
+//		1)	The event is triggered as soon as the input occurs, where a change event is triggered when an element loses
+//			focus.  Each and every keystroke will trigger an input event.
+//		2)	The input event is supported on divs with the contanteditable attribute.  Change is not.
 
 function handleInputEvents (event)
 {	event.preventDefault();
@@ -96,6 +102,30 @@ function handleInputEvents (event)
 
 	document.getElementById ("reset-page").classList.remove ("hidden");
 	document.getElementById ("save-this-title").classList.remove ("hidden");
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//	The event handler and associated functions for click events in main
+
+function handleMainClicks (event)
+{	event.preventDefault();
+
+	switch (event.target.getAttribute ("id"))
+	{
+		case "undo-propercase":
+			{
+alert ("undo-propercase");
+const elem = document.getElementById ("title");
+elem.value = elem.getAttribute ("override");
+				break;
+			}
+		default:
+			{
+alert ("handleMainClicks");
+				break;
+			}
+	}
 }
 
 
@@ -220,7 +250,24 @@ function saveThisTitle ()
 function handleTitleChange (event)
 {	event.preventDefault();
 
-	event.target.value = toProperCase (event.target)
+	//	The vast majority of titles should be in "proper case" but a small percentage (which is actually a very large
+	//	number of titles) should not.  The application already has a mechanism to allow the user to retype a title and
+	//	override the automatic proper case.  But that's kinda clunky and definately not user-friendly.  I want to give
+	//	the user a button to override proper case.
+	//
+	//	To override proper case, I have to know what the user entered into input#title.
+
+	const override = document.getElementById ("title");
+	override.setAttribute ("override", override.value);
+
+	event.target.value = toProperCase (event.target);
+
+	//	The vast majority of titles should be in "proper case" but a small percentage (which is actually a very large
+	//	number of titles) should not.  The application already has a mechanism to allow the user to retype a title and
+	//	override the automatic proper case.  But that's kinda clunky and definately not user-friendly.  Give the user
+	//	a button to override proper case.
+	
+	document.getElementById ("undo-propercase").classList.remove ("hidden"); 
 }
 
 function toProperCase (element)
