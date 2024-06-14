@@ -1,4 +1,4 @@
-//	INDEX.JX
+//	INDEX.JS
 //
 //	This module is primarilly used to manipulate DOM elements associated with the list of titles and nav functions
 //	associated with the list.
@@ -82,7 +82,6 @@ function loadTitles ()
 function handleListClicks (event)
 {	event.preventDefault();
 
-//	alert ("handleListClicks ()");
 	switch (event.target.getAttribute ("id"))
 	{
 		case "delete":
@@ -92,7 +91,6 @@ function handleListClicks (event)
 			}
 		case "title":
 			{
-//					alert ("get the title");
 				sessionStorage.setItem ("movie.key", getAncestorAttribute (event.target, "key"));
 				window.open ("title/title.html", "_self");
 				break;

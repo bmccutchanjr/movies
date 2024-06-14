@@ -7,7 +7,6 @@ main
 {
 	--height: calc(100vh - var(--footer-total));
 
-	/* background-color: rgba(255, 0, 0, 0.5); */
 	display: flex;
 		flex-direction: column;
 		flex-wrap: nowrap;
@@ -95,11 +94,9 @@ section > *:last-child
 
 #about
 {
-	/* background-color: rgba(0, 255, 0, 0.5); */
 	border: 1px solid black;
 	border-radius: 3px;
 	flex-grow: 1;
-	/* height: 100px; */
 	margin-top: 10px;
 	padding: 5px;
 }

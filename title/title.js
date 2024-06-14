@@ -12,7 +12,7 @@ window.addEventListener ("load", event =>
 		//	And add some event listeners
 
 		document.getElementsByTagName ("main")[0].addEventListener ("input", event => { handleInputEvents (event); } );
-document.getElementsByTagName ("main")[0].addEventListener ("click", event => { handleMainClicks (event); } );
+		document.getElementsByTagName ("main")[0].addEventListener ("click", event => { handleMainClicks (event); } );
 		document.getElementsByTagName ("nav")[0].addEventListener ("click", event => { handleNavClicks (event); } );
 		document.getElementById ("title").addEventListener ("change", event => { handleTitleChange (event); } );
 	})
@@ -115,9 +115,8 @@ function handleMainClicks (event)
 	{
 		case "undo-propercase":
 			{
-alert ("undo-propercase");
-const elem = document.getElementById ("title");
-elem.value = elem.getAttribute ("override");
+				const elem = document.getElementById ("title");
+				elem.value = elem.getAttribute ("override");
 				break;
 			}
 		default:
@@ -155,8 +154,6 @@ function handleNavClicks (event)
 		case "edit-page":
 			{
 				editMode (true);
-//				document.getElementById ("title").focus();
-//					giveElementFocus ("title");
 				break;
 			}
 		case "reset-page":
@@ -167,7 +164,6 @@ function handleNavClicks (event)
 		case "save-this-title":
 			{
 				saveThisTitle();
-//					giveElementFocus ("title");
 				break;
 			}
 		default:
@@ -292,42 +288,33 @@ function toProperCase (element)
 
 	if (element.value.toUpperCase() != element.getAttribute ("previous-value"))
 	{
-//			const array = element.value.toLowerCase().split (" ");
-//			array.forEach ((a, i) =>
-//				{
-//					if ((i == 0) || (except.indexOf (a) == -1))
-//					{
-//						const arrayB = a.split ("");
-//						arrayB[0] = arrayB[0].toUpperCase();
-//						array[i] = arrayB.join ("");
-//					}
-//				})
 
-//	create an array of title and subtitles
-const subtitleArray = element.value.trim().toLowerCase().split (":");
+		//	create an array of title and subtitles
+		const subtitleArray = element.value.trim().toLowerCase().split (":");
 
-subtitleArray.forEach ((a1, i) =>
-	{
-		//	create an array of woeds
-		const wordArray = a1.trim().toLowerCase().split (" ");		
-		wordArray.forEach ((a2, i) =>
+		subtitleArray.forEach ((a1, i) =>
 			{
-				if ((i == 0) || (except.indexOf (a2) == -1) || (i == (wordArray.length - 1)))
-				{
-					const array3 = a2.split ("");
-					array3[0] = array3[0].toUpperCase();
-					wordArray[i] = array3.join ("");
-				}
+				//	create an array of woeds
+				const wordArray = a1.trim().toLowerCase().split (" ");		
+				wordArray.forEach ((a2, i) =>
+					{
+						if ((i == 0) || (except.indexOf (a2) == -1) || (i == (wordArray.length - 1)))
+						{
+							const array3 = a2.split ("");
+							array3[0] = array3[0].toUpperCase();
+							wordArray[i] = array3.join ("");
+						}
+					})
+
+				subtitleArray[i] = wordArray.join (" ");
 			})
 
-		subtitleArray[i] = wordArray.join (" ");
-	})
+		returnString = subtitleArray.join (": ").trim();
 
-returnString = subtitleArray.join (": ").trim();
-
-element.setAttribute ("previous-value", returnString.toUpperCase());
+		element.setAttribute ("previous-value", returnString.toUpperCase());
 	}
-return returnString;
+
+	return returnString;
 }
 
 
