@@ -121,7 +121,7 @@ function handleMainClicks (event)
 			}
 		default:
 			{
-alert ("handleMainClicks");
+//	alert ("handleMainClicks");
 				break;
 			}
 	}
