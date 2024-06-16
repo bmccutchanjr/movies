@@ -113,12 +113,19 @@ function handleMainClicks (event)
 
 	switch (event.target.getAttribute ("id"))
 	{
-		case "undo-propercase":
+		case "propercase":
 			{
 				const elem = document.getElementById ("title");
-				elem.value = elem.getAttribute ("override");
+//					elem.value = elem.getAttribute ("override");
+elem.value = toProperCase (elem.value);
 				break;
 			}
+//			case "undo-propercase":
+//				{
+//					const elem = document.getElementById ("title");
+//					elem.value = elem.getAttribute ("override");
+//					break;
+//				}
 		default:
 			{
 //	alert ("handleMainClicks");
@@ -246,27 +253,14 @@ function saveThisTitle ()
 function handleTitleChange (event)
 {	event.preventDefault();
 
-	//	The vast majority of titles should be in "proper case" but a small percentage (which is actually a very large
-	//	number of titles) should not.  The application already has a mechanism to allow the user to retype a title and
-	//	override the automatic proper case.  But that's kinda clunky and definately not user-friendly.  I want to give
-	//	the user a button to override proper case.
-	//
-	//	To override proper case, I have to know what the user entered into input#title.
+	//	So far the only thing I want to do here is enable a button to allow the user to format the title in 'proper'
+	//	case.  This was an automatic function but required overriding for the minority of titles that should not be
+	//	proper case.  It's now strictly optional.
 
-	const override = document.getElementById ("title");
-	override.setAttribute ("override", override.value);
-
-	event.target.value = toProperCase (event.target);
-
-	//	The vast majority of titles should be in "proper case" but a small percentage (which is actually a very large
-	//	number of titles) should not.  The application already has a mechanism to allow the user to retype a title and
-	//	override the automatic proper case.  But that's kinda clunky and definately not user-friendly.  Give the user
-	//	a button to override proper case.
-	
-	document.getElementById ("undo-propercase").classList.remove ("hidden"); 
+	document.getElementById ("propercase").classList.remove ("hidden"); 
 }
 
-function toProperCase (element)
+function toProperCase (string)
 {
 	//	Change the value of element to "proper" case.  For a movie title, that means all words should be capitalized
 	//	except for articles ("a", "an" and "the") and prepositions ("in", "on", "with", etc.).  The first word in the
@@ -283,38 +277,32 @@ function toProperCase (element)
 	//	prepositionsm etc) should be in lower case.  The Chicago rule book says conjuctions and prepositions more than
 	//	four letters in length should be capitalized.
 
-	let returnString = element.value;
 	const except = [ "a", "an", "and", "at", "but", "by", "for", "from", "in", "nor", "not", "of", "on", "or", "the", "to", "with" ]
 
-	if (element.value.toUpperCase() != element.getAttribute ("previous-value"))
-	{
+	const subtitleArray = string.trim().toLowerCase().split (":");
 
-		//	create an array of title and subtitles
-		const subtitleArray = element.value.trim().toLowerCase().split (":");
-
-		subtitleArray.forEach ((a1, i) =>
-			{
-				//	create an array of woeds
-				const wordArray = a1.trim().toLowerCase().split (" ");		
-				wordArray.forEach ((a2, i) =>
+	subtitleArray.forEach ((a1, i) =>
+		{
+			//	create an array of woeds
+			const wordArray = a1.trim().toLowerCase().split (" ");		
+			wordArray.forEach ((a2, i) =>
+				{
+					if ((i == 0) || (except.indexOf (a2) == -1) || (i == (wordArray.length - 1)))
 					{
-						if ((i == 0) || (except.indexOf (a2) == -1) || (i == (wordArray.length - 1)))
-						{
-							const array3 = a2.split ("");
-							array3[0] = array3[0].toUpperCase();
-							wordArray[i] = array3.join ("");
-						}
-					})
+						const array3 = a2.split ("");
+						array3[0] = array3[0].toUpperCase();
+						wordArray[i] = array3.join ("");
+					}
+				})
 
-				subtitleArray[i] = wordArray.join (" ");
-			})
+			subtitleArray[i] = wordArray.join (" ");
+		})
 
-		returnString = subtitleArray.join (": ").trim();
+	string = subtitleArray.join (": ").trim();
 
-		element.setAttribute ("previous-value", returnString.toUpperCase());
-	}
+	document.getElementById ("propercase").classList.add ("hidden"); 
 
-	return returnString;
+	return string;
 }
 
 
