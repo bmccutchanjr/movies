@@ -86,7 +86,7 @@ function handleListClicks (event)
 	{
 		case "delete":
 			{
-				alert ("delete");
+				deleteTitle (getAncestorAttribute (event.target, "key"));
 				break;
 			}
 		case "title":

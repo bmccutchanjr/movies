@@ -67,6 +67,14 @@ function createUniqueKey ()
 	return key;
 }
 
+function deleteTitle (key)
+{
+	//	Remove the title, with the specified key, from the datastore
+
+	data.titles.splice (getIndex (key), 1);
+	saveDatastore();
+}
+
 function getListOfTitles ()
 {
 	return new Promise ((response, reject) =>
@@ -129,18 +137,7 @@ function updateTitle (t)
 	//	Update an existing title.  I need to identify the element of data.titles[] to update...that;s the element
 	//	whose property "key" matches the parameter's property "key".
 
-	let index = undefined;
-
-	for (let i=0; i<data.titles.length; i++)
-	{
-		if (data.titles[i].key == t.key)
-		{
-			index = i;
-			break;
-		}
-	}
-
-data.titles[index] = t;
+	data.titles[getIndex (t.key)] = t;
 
 	//	This function is modifying a global variable.  There's nothing to return
 }
@@ -148,6 +145,24 @@ data.titles[index] = t;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //	Functins associated with sorting the datastore
+
+function getIndex (key)
+{
+	//	Returns the index of the element in data.titles[] with the specified key 
+
+	let index = undefined;
+
+	for (let i=0; i<data.titles.length; i++)
+	{
+		if (data.titles[i].key == key)
+		{
+			index = i;
+			break;
+		}
+	}
+
+	return index;
+}
 
 function sortTitles ()
 {
