@@ -86,7 +86,12 @@ function handleListClicks (event)
 	{
 		case "delete":
 			{
-				deleteTitle (getAncestorAttribute (event.target, "key"));
+				const element = getAncestorByAttribute (event.target, "key");
+				deleteTitle (element.getAttribute ("key"));
+				//	If I reload the data, I's be 100% absolutely without-a-doubt guaranteed that the what is on screen os exactly
+				//	what is in the datastore...but as long as there isn't an error simply removing the deleted element from the
+				//	DOM will do the trick
+				document.getElementById ("title-list").removeChild	(element);
 				break;
 			}
 		case "title":
@@ -153,10 +158,23 @@ function getAncestorAttribute (element, attribute)
 	//	But I need "key" to identify the correct entry in the datastore.  That attribute belongs to the container div whicg
 	//	is the parent of the checkbox or button.  There's a similar issue with nav buttons.
 
+	return getAncestorByAttribute (element, attribute).getAttribute (attribute);
+}
+
+function getAncestorByAttribute (element, attribute)
+{
+	//	Begining with "element", traverse the DOM to find the first ancestor element (parent, grandparent, etc) with the
+	//	specified attribute.  Return the value of the attribute.
+
+	//	Many of the clickable elements on this page are wrapped in container elemets where the container has an attribute
+	//	I need.  For instance, the clickboxes and delete buttons in the list of titles do not have an attribute of "key".
+	//	But I need "key" to identify the correct entry in the datastore.  That attribute belongs to the container div whicg
+	//	is the parent of the checkbox or button.  There's a similar issue with nav buttons.
+
 	while (element.getAttribute (attribute) == undefined)
 	{
 		element = element.parentElement;
 	}
 
-	return element.getAttribute (attribute);
+	return element;
 }
