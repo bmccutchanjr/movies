@@ -86,12 +86,15 @@ function handleListClicks (event)
 	{
 		case "delete":
 			{
-				const element = getAncestorByAttribute (event.target, "key");
-				deleteTitle (element.getAttribute ("key"));
-				//	If I reload the data, I's be 100% absolutely without-a-doubt guaranteed that the what is on screen os exactly
-				//	what is in the datastore...but as long as there isn't an error simply removing the deleted element from the
-				//	DOM will do the trick
-				document.getElementById ("title-list").removeChild	(element);
+				if (confirm ("Are you sure you want to delete\n\n" + getSiblingById (event.target, "title").innerText))
+				{
+					const element = getAncestorByAttribute (event.target, "key");
+					deleteTitle (element.getAttribute ("key"));
+					//	If I reload the data, I's be 100% absolutely without-a-doubt guaranteed that the what is on screen os exactly
+					//	what is in the datastore...but as long as there isn't an error simply removing the deleted element from the
+					//	DOM will do the trick
+					document.getElementById ("title-list").removeChild	(element);
+				}
 				break;
 			}
 		case "title":
@@ -177,4 +180,12 @@ function getAncestorByAttribute (element, attribute)
 	}
 
 	return element;
+}
+
+function getSiblingById (element, id)
+{
+	//	Return the sibling of the indicated DOM element that with the indicated id
+
+	const parent = element.parentElement;
+	return parent.querySelector ("#" + id);
 }
